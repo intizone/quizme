@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+  {% block content %}
+  <section class="section">
+    <div class="section-body">
+      <div class="row">
+        <div class="col-12 col-md-12 col-lg-12">
+          <div class="card">
+            <form action="{% url 'front:create_answers' quiz.code %}" method="post">
+                {% csrf_token %}
+                <div class="card-header">
+                  <h4>{{quiz.title}}</h4>
+                </div>
+                <div class="card-body">
+                    {% for question in questions %}
+                    <div class="section-title">{{question.title}}</div>
+                    <input type="hidden" value="{{question.id}}" name="question{{question.id}}">
+                        {% for option in question.get_options %}
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="option{{option.id}}" name="option{{question.id}}" class="custom-control-input" required value="{{option.id}}">
+                            <label class="custom-control-label" for="option{{option.id}}">{{option.name}}</label>
+                        </div>
+                        {% endfor %} <hr>
+                    <!-- <div class="custom-control custom-radio">
+                        <input type="radio" id="customRadio4" name="customRadio" class="custom-control-input">
+                        <label class="custom-control-label" for="customRadio4">Or toggle this other custom radio</label>
+                    </div> -->
+                    {% endfor %}
+                    <button class="btn btn-success">Yuborish</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endblock %}

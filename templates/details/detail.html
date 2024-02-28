@@ -1,0 +1,64 @@
+{%extends 'base.html'%}
+  {%block content%}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-xl-3"></div>
+            <div class="card col-xl-6 col-lg-6 " id="sample-login">
+                <form method = 'post'> {%csrf_token%}
+                <div class="card-header justify-content-center d-flex">
+                    <h4>Question detail</h4>
+                </div>
+                <div class="card-body pb-0">
+                    <div class="form-group">
+                    <label>the question</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <i class="fa-solid fa-question"></i>
+                        </div>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Question title" name = 'title' value = "{{question.title}}" >
+                    </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="#">Correct answer</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Correct answer for the question " name="correct" value="{{option_correct.name}}">
+                        </div>
+                    </div>
+                    <br>
+                    <label for="#">incorrect options</label>
+                    {%for incorrect in options%}
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa-regular fa-circle-xmark"></i>
+                            </div>
+                            </div>
+                            <input type="text" class="form-control" placeholder=" Wrong answer for the question " name="incorrect{{forloop.counter}}" value="{{incorrect.name}}">
+                        </div>
+                    </div>
+                    {%endfor%}
+                    <div class="form-group mb-0">
+                    </div>
+                    <div class="card-footer  justify-content-left d-flex">
+                        <div class="col-12 d-flex justify-content-center">
+                            <button type="submit" name="submit_action" value="save_again" class="col-12 btn btn-primary">Save if changed</button>
+                        </div>
+                    </div>
+                </div>
+                
+                </form>
+            </div>
+        </div>
+    </div>
+
+  {%endblock%}

@@ -1,0 +1,29 @@
+{%extends 'base.html'%}
+  {%block content%}
+  <div class="col-12 col-md-12 col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <h4>Simple Table</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-md">
+            <tbody><tr>
+              <th>No</th>
+              <th>Name</th>
+              <th>Action</th>
+            </tr>
+            <tr>
+                {%for question in questions%}
+              <td>{{forloop.counter}}</td>
+              <td>{{question.title }}</td>
+              <td><a href="{%url 'dash:quest_detail' question.id%}" class="btn btn-primary">Detail</a></td>
+            </tr>
+            {%endfor%}
+          </tbody></table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  {%endblock%}
