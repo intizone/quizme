@@ -12,6 +12,8 @@ urlpatterns = [
     path('questions/<int:id>', views.questions_list, name = 'questions'),
     path('question-detail/<int:id>', views.quest_detail, name = 'quest_detail'),
     path('quiz-delete/<int:id>', views.quiz_delete , name ='quiz_delete' ),
+    path('get-results/<int:id>', views.get_results , name ='get_results' ),
+    path('result-detail/<int:id>', views.result_detail , name ='result_detail' ),
     path('add-question/<int:id>', views.add_question, name = 'add_question'),
     #auth
     path('login', views.logging_in, name = 'login'),

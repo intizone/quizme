@@ -13,7 +13,6 @@ def main(request):
     }
     return render(request, 'main.html', context)
 
-
 @login_required(login_url = 'dash:login')
 def create_quiz(request):
     if request.method == 'POST':
@@ -24,7 +23,6 @@ def create_quiz(request):
         )
         return redirect('dash:quest_create', quiz.id)
     return render(request, 'quiz/create-quiz.html')
-
 
 @login_required(login_url='dash:login')
 def create_question(request, id):
@@ -53,12 +51,13 @@ def create_question(request, id):
             return redirect('dash:main')
     return render(request, 'quiz/create-question.html')
 
-
 @login_required(login_url = 'dash:login')
 def questions_list(request, id):
+    correct_answer = Option.objects.filter(question__quiz_id = id, is_correct = True)
     quests = Question.objects.filter(quiz_id = id)
     context = {
-        'questions': quests
+        'questions': quests,
+        'correct_answer': correct_answer[0]
     }
     return render (request, 'details/questions.html', context)
 
@@ -92,6 +91,10 @@ def quest_detail(request, id):
 
     return render(request, 'details/detail.html', context)
 
+@login_required(login_url = 'dash:login')
+def quiz_delete(request, id):
+    Quiz.objects.get(id = id).delete()
+    return redirect('dash:main')
 
 @login_required(login_url = 'dash:login')
 def add_question(request, id):
@@ -125,6 +128,32 @@ def quiz_delete(request, id):
     Quiz.objects.get(id = id).delete()
     return redirect('dash:main')
 
+@login_required(login_url = 'dash:login')
+def get_results(request, id):
+    quiz = Quiz.objects.get(id=id)
+    taker = QuizTaker.objects.filter(quiz=quiz)
+
+    # results = []
+    # for i in taker:
+    #     results.append(Result.objects.get(taker=i))
+    
+    results = tuple(
+            map(
+            lambda x : Result.objects.get(taker=x),
+            taker
+        )
+    )
+    return render(request, 'quiz/results.html', {'results':results})
+
+def result_detail(request, id):
+    result = Result.objects.get(id=id)
+    answers = Answer.objects.filter(taker=result.taker)
+    context = {
+        'taker':result.taker,
+        'answers':answers
+    }
+    return render(request, 'quiz/result-detail.html', context)
+
 #login
 
 
@@ -157,3 +186,4 @@ def register(request):
         else:
             status  = f'the username {username} is occupied'
     return render(request, 'auth/register.html', {'status': status})
+

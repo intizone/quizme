@@ -6,22 +6,21 @@
           
           <div class="row d-flex justify-content-center">
             <h1 class="col-12" style="text-align: center;">All quizes you've created</h1>
-          {% for quiz in quizes %}
+          {% for result in results %}
          
           <div class="card card-danger col-5 m-2">
             <div class="card-header">
-              <h4>{{quiz.title}}</h4>
+              <h4>{{result.taker.full_name}}</h4>
               <div class="card-header-action">
-                <a href="{%url 'dash:questions' quiz.id%}" class="btn btn-primary">View the quiz</a>
-                <a href="{%url 'dash:quiz_delete' quiz.id%}" class="btn btn-danger">Delete quiz</a>
-                <a href="{%url 'dash:add_question' quiz.id%}" class="btn btn-success">Add new question</a>
+                <a href="{% url 'dash:result_detail' result.id %}" class="btn btn-primary">Get Details</a>
               </div>
             </div>
             <div class="card-body">
             </div>
-            <p>Contains {{quiz.all_questions}} question(s) overall</p>
-            <h4><a href="{% url 'front:quiz_detail' quiz.code %}">link</a>
-            <h4><a href="{% url 'dash:get_results' quiz.id %}">Results</a>
+            <p>Total questions {{result.questions}}</p>
+            <p>Correct answers {{result.correct_answers}}</p>
+            <p>In Correct answers {{result.incorrect_answers}}</p>
+            <p>Percentage {{result.percentage}} %</p>
             </div>
 
           {%endfor%}

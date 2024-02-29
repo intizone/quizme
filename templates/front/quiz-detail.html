@@ -11,12 +11,23 @@
                   <h4>{{quiz.title}}</h4>
                 </div>
                 <div class="card-body">
+                  <div>
+                      <label for="name">FISh</label>
+                      <input class="form-control" type="text" id="name" name="full_name" required>
+                  </div>
+                  <div>
+                      <label for="name">Phone</label>
+                      <input class="form-control" type="text" id="phone" name="phone" required>
+                  </div>
+                  <div>
+                      <label for="name">Email</label>
+                      <input class="form-control" type="email" id="email" name="email">
+                  </div>
                     {% for question in questions %}
-                    <div class="section-title">{{question.title}}</div>
-                    <input type="hidden" value="{{question.id}}" name="question{{question.id}}">
+                    <div class="section-title">{{forloop.counter}}) {{question.title}}</div>
                         {% for option in question.get_options %}
                         <div class="custom-control custom-radio">
-                            <input type="radio" id="option{{option.id}}" name="option{{question.id}}" class="custom-control-input" required value="{{option.id}}">
+                            <input type="radio" id="option{{option.id}}" name="{{question.id}}" class="custom-control-input" required value="{{option.id}}">
                             <label class="custom-control-label" for="option{{option.id}}">{{option.name}}</label>
                         </div>
                         {% endfor %} <hr>
