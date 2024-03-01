@@ -12,7 +12,7 @@
             <div class="card-header">
               <h4>{{quiz.title}}</h4>
               <div class="card-header-action">
-                <a href="{%url 'dash:questions' quiz.id%}" class="btn btn-primary">View the quiz</a>
+                <a href="{%url 'dash:questions' quiz.id%}" class="btn btn-primary">Questions</a>
                 <a href="{%url 'dash:quiz_delete' quiz.id%}" class="btn btn-danger">Delete quiz</a>
                 <a href="{%url 'dash:add_question' quiz.id%}" class="btn btn-success">Add new question</a>
               </div>
@@ -20,8 +20,9 @@
             <div class="card-body">
             </div>
             <p>Contains {{quiz.all_questions}} question(s) overall</p>
-            <h4><a href="{% url 'front:quiz_detail' quiz.code %}">link</a>
-            <h4><a href="{% url 'dash:get_results' quiz.id %}">Results</a>
+            <h4><a href="{% url 'front:quiz_detail' quiz.code %}">link to test</a>
+            <h4><a href="{% url 'dash:get_results' quiz.id %}">Results' details</a>
+            <h4><a href="{% url 'dash:get_results_excel' quiz.id %}">Excel</a>
             </div>
 
           {%endfor%}

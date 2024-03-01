@@ -1,5 +1,18 @@
 {%extends 'base.html'%}
-  {%block content%}
+{% block content %}
+{% load static %}
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>Otika - Admin Dashboard Template</title>
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="{% static 'assets/css/app.min.css' %}">
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/components.css' %}">
+  <!-- Custom style CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
+  <link rel='shortcut icon' type='image/x-icon' href='{% static "assets/img/favicon.ico" %}' />
+
   <div class="col-12 col-md-12 col-lg-12">
     <div class="card">
       <div class="card-header">
@@ -23,8 +36,47 @@
             </tr>
             {%endfor%}
           </tbody></table>
+
+
+          <section class="section">
+            <div class="section-body">
+              <div class="row clearfix">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-6">
+                  <div class="card">
+                    <div class="card-header">
+                      <h4>Bar CHart</h4>
+                    </div>
+                    <div class="card-body">
+                      <div class="recent-report__chart">
+                        <div id="barChart"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </section>
         </div>
       </div>
     </div>
   </div>
-  {%endblock%}
+
+
+
+  <script src="{% static 'assets/js/app.min.js' %}"></script>
+  <!-- JS Libraies -->
+  <script src="{% static 'assets/bundles/amcharts4/core.js' %}"></script>
+  <script src="{% static 'assets/bundles/amcharts4/charts.js' %}"></script>
+  <script src="{% static 'assets/bundles/amcharts4/animated.js' %}"></script>
+  <script src="{% static 'assets/bundles/amcharts4/worldLow.js' %}"></script>
+  <script src="{% static 'assets/bundles/amcharts4/maps.js' %}"></script>
+  <!-- Page Specific JS File -->
+  <script src="{% static 'assets/js/page/chart-amchart.js' %}"></script>
+  <!-- Template JS File -->
+  <script src="{% static 'assets/js/scripts.js' %}"></script>
+  <!-- Custom JS File -->
+  <script src="{% static 'assets/js/custom.js' %}"></script>
+
+
+
+
+  {% endblock %}

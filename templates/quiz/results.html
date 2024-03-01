@@ -5,14 +5,15 @@
         <section class="section" >
           
           <div class="row d-flex justify-content-center">
-            <h1 class="col-12" style="text-align: center;">All quizes you've created</h1>
+            <h1 class="col-4 style=">Results</h1>
+            <a href="{% url 'dash:get_results_excel' quiz.id %}" class="col-3 btn-warning" style="text-align: center; -webkit-text-fill-color: rgb(255, 255, 255);"><h3>Download as file 📊</h3></a>
           {% for result in results %}
          
           <div class="card card-danger col-5 m-2">
             <div class="card-header">
               <h4>{{result.taker.full_name}}</h4>
               <div class="card-header-action">
-                <a href="{% url 'dash:result_detail' result.id %}" class="btn btn-primary">Get Details</a>
+                <a href="{% url 'dash:result_detail' result.id %}" style="text-align: center;" class="btn btn-primary">Get Details</a>
               </div>
             </div>
             <div class="card-body">
@@ -24,6 +25,7 @@
             </div>
 
           {%endfor%}
+          
         </div>
         </section>
         <div class="settingSidebar">

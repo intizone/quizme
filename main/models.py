@@ -25,7 +25,7 @@ class Quiz(models.Model):
         super(Quiz, self).save(*args, **kwargs)
 
 class Question(models.Model):
-    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    quiz = models.ForeignKey(Quiz,related_name='questions', on_delete=models.CASCADE)
     title = models.TextField()
 
     @property
@@ -43,7 +43,7 @@ class Question(models.Model):
         return options
 
 class Option(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question,related_name='options', on_delete=models.CASCADE)
     name = models.TextField()
     is_correct = models.BooleanField(default=False)
 
