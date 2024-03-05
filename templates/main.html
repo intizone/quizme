@@ -1,5 +1,6 @@
 {%extends 'base.html'%}
   {%block content%}
+
       <!-- Main Content -->
 
         <section class="section" >
@@ -20,11 +21,15 @@
             <div class="card-body">
             </div>
             <p>Contains {{quiz.all_questions}} question(s) overall</p>
-            <h4><a href="{% url 'front:quiz_detail' quiz.code %}">link to test</a>
-            <h4><a href="{% url 'dash:get_results' quiz.id %}">Results' details</a>
-            <h4><a href="{% url 'dash:get_results_excel' quiz.id %}">Excel</a>
-            </div>
-
+            <h4><a href="{% url 'dash:get_results' quiz.id %}">Results' details</a></h4>
+            <h4><a href="{% url 'dash:get_results_excel' quiz.id %}">Excel</a></h4>
+            <h4>
+              <a href="{% url 'front:quiz_detail' quiz.code %}" id="testLink">Link to test :</a>
+              <input type="text" value="{{ request.build_absolute_uri }}{% url 'front:quiz_detail' quiz.code %}" id="testLinkInput" readonly style="display: none;">
+              <button class="btn-primary" onclick="copyToClipboard()">copy</button>
+            </h4>
+          </div>
+          
           {%endfor%}
         </div>
         </section>
@@ -119,5 +124,18 @@
             </div>
           </div>
         </div>
-
+        <script>
+          async function copyToClipboard() {
+              /* Get the text field */
+              var copyText = document.getElementById("testLinkInput");
+          
+              try {
+                  await navigator.clipboard.writeText(copyText.value);
+                  /* Alert the copied text */
+                  alert("Copied the text: " + copyText.value);
+              } catch (err) {
+                  console.error('Failed to copy text: ', err);
+              }
+          }
+          </script>
   {%endblock%}
