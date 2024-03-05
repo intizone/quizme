@@ -30,7 +30,6 @@ def quiz_detail(request, code):
     }
     return render(request, 'front/quiz-detail.html', context)
 
-
 def create_answers(request, code):
     quiz = models.Quiz.objects.get(code=code)
     full_name = request.POST['full_name']
@@ -52,4 +51,14 @@ def create_answers(request, code):
 
             )
     create_result(quiz_taker.id)
-    return HttpResponse('Javobingiz yozildi')
+    return redirect('front:show_result', id=quiz_taker.id, code=code)
+
+def show_result(request, id, code):
+    quiz_taker = models.QuizTaker.objects.get(id=id)
+    result = models.Result.objects.get(taker=quiz_taker, taker__quiz__code=code)
+    context = {
+        'quiz_taker':quiz_taker,
+        'result':result,
+        'percentage':(result.correct_answers/(result.correct_answers+result.incorrect_answers))*100,
+    }
+    return render(request, 'front/user-result.html', context)

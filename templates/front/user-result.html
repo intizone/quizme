@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .result-container {
+            text-align: center;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            width: 50%;
+        }
+        h1 {
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        p {
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .correct {
+            color: #4CAF50; /* green */
+        }
+        .incorrect {
+            color: #F44336; /* red */
+        }
+        .percentage {
+            color: #3F51B5; /* indigo */
+        }
+    </style>
+</head>
+<body>
+    <div class="result-container">
+        <h1>User Result</h1>
+        <p class="correct">Correct Answers: {{ result.correct_answers }}</p>
+        <p class="incorrect">Incorrect Answers: {{ result.incorrect_answers }}</p>
+        <p class="percentage">Percentage: {{result.percentage}}</p>
+    </div>
+</body>
+</html>

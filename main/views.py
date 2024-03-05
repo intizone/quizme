@@ -171,7 +171,7 @@ def get_results(request, id):
     }
     return render(request, 'quiz/results.html', context)
 
-
+@login_required(login_url = 'dash:login')
 def result_detail(request, id):
     result = Result.objects.get(id=id)
     answers = Answer.objects.filter(taker=result.taker)
