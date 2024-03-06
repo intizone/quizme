@@ -32,7 +32,7 @@
               <td>{{forloop.counter}}</td>
               <td>{{question.title }}</td>
               <td>{{correct_answer}}</td>
-              <td><a href="{%url 'dash:quest_detail' question.id%}" class="btn btn-primary">Detail</a></td>
+              <td><a href="{%url 'dash:quest_detail' question.id%}" class="btn btn-primary">Edit</a></td>
             </tr>
             {%endfor%}
           </tbody></table>

@@ -33,6 +33,19 @@ def quiz_detail(request, code):
     else:
         return HttpResponse("Quiz's time is over!")
 
+from datetime import datetime
+
+def quiz_edit(request, code):
+    quiz = models.Quiz.objects.get(code=code)
+    if request.method == 'POST':
+        quiz.title = request.POST['title']
+        starttime_str = request.POST['start_time']
+        endtime_str = request.POST.get('end_time')
+        quiz.starttime = datetime.strptime(starttime_str, '%Y-%m-%dT%H:%M') if starttime_str else None
+        quiz.endtime = datetime.strptime(endtime_str, '%Y-%m-%dT%H:%M') if endtime_str else None
+        quiz.save()
+        return redirect('dash:main')
+    return render(request, 'front/quiz-edit.html', {'quiz':quiz})
 
 def create_answers(request, code):
     quiz = models.Quiz.objects.get(code=code)

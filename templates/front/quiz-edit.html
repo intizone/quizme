@@ -1,0 +1,55 @@
+{%extends 'base.html'%}
+{%block content%}
+<div style="margin-top: 100px;"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-xl-3"></div>
+        <div class="card col-xl-6 col-lg-6 " id="sample-login">
+            <form method="post"> {%csrf_token%}
+            <div class="card-header">
+                <h4>Edit Quiz</h4>
+            </div>
+            <div class="card-body pb-0">
+                <p class="text-muted">Edit the details of this quiz</p>
+                <div class="form-group">
+                <label>Name</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fa-solid fa-question"></i>
+                    </div>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Quiz name" name="title" value="{{ quiz.title }}" required>
+                </div>
+                </div>
+                <div class="form-group">
+                    <label>Start Time</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                        </div>
+                        <input type="datetime-local" class="form-control" name="start_time" value="{{ quiz.starttime|date:'Y-m-d\TH:i' }}" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>End Time</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                        </div>
+                        <input type="datetime-local" class="form-control" name="end_time" value="{{ quiz.endtime|date:'Y-m-d\TH:i' }}">
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer  justify-content-center d-flex">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock%}
