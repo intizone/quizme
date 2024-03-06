@@ -47,7 +47,7 @@
         <h1>User Result</h1>
         <p class="correct">Correct Answers: {{ result.correct_answers }}</p>
         <p class="incorrect">Incorrect Answers: {{ result.incorrect_answers }}</p>
-        <p class="percentage">Percentage: {{result.percentage}}</p>
+        <p class="percentage">Percentage: {{ result.percentage|floatformat:1 }}%</p>
     </div>
 </body>
 </html>

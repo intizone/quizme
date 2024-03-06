@@ -3,7 +3,6 @@ import openpyxl
 from openpyxl.utils import get_column_letter
 from openpyxl.styles import Alignment
 from .models import Quiz, QuizTaker, Result, Answer
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import *
 from django.contrib.auth import login, authenticate
@@ -42,13 +41,20 @@ def main(request):
     return render(request, 'main.html', context)
 
 # creators
+from datetime import datetime
+
 @login_required(login_url = 'dash:login')
 def create_quiz(request):
     if request.method == 'POST':
         title = request.POST['title']
+        starttime = datetime.strptime(request.POST['starttime'], '%Y-%m-%dT%H:%M')
+        endtime_str = request.POST.get('endtime')
+        endtime = datetime.strptime(endtime_str, '%Y-%m-%dT%H:%M') if endtime_str else None
         quiz = Quiz.objects.create(
             title = title,
-            author = request.user
+            author = request.user,
+            starttime = starttime,
+            endtime = endtime
         )
         return redirect('dash:quest_create', quiz.id)
     return render(request, 'quiz/create-quiz.html')

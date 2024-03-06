@@ -2,12 +2,23 @@ import random, string
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.timezone import now
 
 
 class Quiz(models.Model):
     title = models.CharField(max_length=255)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     code = models.CharField(max_length=255, blank=True, unique=True)
+    starttime = models.DateTimeField(default=now, editable=True)
+    endtime = models.DateTimeField(default = None, null=True, blank=True)
+
+    @property
+    def is_active(self):
+        if self.endtime is None:
+            return now() > self.starttime
+        else:
+            return now() > self.starttime and now() < self.endtime
+
 
     @property
     def all_questions(self):

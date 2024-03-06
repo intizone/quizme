@@ -128,11 +128,9 @@
           async function copyToClipboard() {
               /* Get the text field */
               var copyText = document.getElementById("testLinkInput");
-          
               try {
                   await navigator.clipboard.writeText(copyText.value);
-                  /* Alert the copied text */
-                  alert("Copied the text: " + copyText.value);
+                  alert("Text copied");
               } catch (err) {
                   console.error('Failed to copy text: ', err);
               }
