@@ -5,10 +5,24 @@
         <section class="section" >
           
           <div class="row d-flex justify-content-center">
-            <h1 class="col-4 style=">Results</h1>
-            <a href="{% url 'dash:get_results_excel' quiz.id %}" class="col-3 btn-warning" style="text-align: center; -webkit-text-fill-color: rgb(255, 255, 255);"><h3>Download as file 📊</h3></a>
+            <h3 class="col-4 style=">Results</h3>
+            <!-- <a href="{% url 'dash:get_results_excel' quiz.id %}" class="col-3 btn-warning" style="text-align: center; -webkit-text-fill-color: rgb(255, 255, 255);"><h3>Download as file 📊</h3></a> -->
+          
+          
+          
+                <a href="{% url 'dash:questions' quiz.id %}" class="col-2 btn btn-info" style="text-align: center;"><h5>questions</h5></a>
+                <a href=href="{% url 'dash:get_results_excel' quiz.id %}" class="col-2 btn btn-warning" style="text-align: center;"><h5>as excel file⬇️</h5></a>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
           {% for result in results %}
-         
           <div class="card card-danger col-5 m-2">
             <div class="card-header">
               <h4>{{result.taker.full_name}}</h4>

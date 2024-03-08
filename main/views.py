@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.http import HttpResponse, Http404
 import openpyxl
 from openpyxl.utils import get_column_letter
@@ -31,17 +32,20 @@ def chart_data_view(request):
 
 
 
-
-@login_required(login_url = 'dash:login')
+@login_required(login_url='dash:login')
 def main(request):
-    quizes = Quiz.objects.filter(author = request.user)
+    # Retrieve quizzes created by the currently logged-in user
+    quizes = Quiz.objects.filter(author=request.user)
+
+    # Exclude quizzes with zero questions
+    quizes_with_questions = [quiz for quiz in quizes if quiz.questions.exists()]
+
     context = {
-        "quizes" : quizes
+        "quizes": quizes_with_questions
     }
     return render(request, 'main.html', context)
 
-# creators
-from datetime import datetime
+
 
 @login_required(login_url = 'dash:login')
 def create_quiz(request):
