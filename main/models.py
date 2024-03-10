@@ -1,16 +1,19 @@
-import random, string
-
+import random
+import string
+from django_ckeditor_5.fields import CKEditor5Field
+from django_ckeditor_5.widgets import CKEditor5Widget
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import now
 
-
 class Quiz(models.Model):
-    title = models.CharField(max_length=255)
+    title = CKEditor5Field("Text", config_name = "extends" )
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     code = models.CharField(max_length=255, blank=True, unique=True)
     starttime = models.DateTimeField(default=now, editable=True)
     endtime = models.DateTimeField(default = None, null=True, blank=True)
+
+
 
     @property
     def is_active(self):
