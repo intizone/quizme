@@ -1,51 +1,22 @@
-from datetime import datetime
 from django.http import HttpResponse, Http404
-import openpyxl
-from openpyxl.utils import get_column_letter
-from openpyxl.styles import Alignment
-from .models import Quiz, QuizTaker, Result, Answer
 from django.shortcuts import render, redirect
-from .models import *
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+
+from datetime import datetime
 from openpyxl.utils import get_column_letter
 from openpyxl.styles import Alignment
-
-from django.http import JsonResponse
-from .models import Quiz, Question, Option, Answer
-
-def chart_data_view(request):
-    # Assuming you have a model for storing quiz data, adjust this query accordingly
-    questions = Question.objects.all()
-
-    # Calculate the number of true solvers for each question
-    data = []
-    for question in questions:
-        true_solvers = Answer.objects.filter(option__question=question, option__is_correct=True).count()
-        data.append({
-            'question_id': question.id,
-            'true_solvers': true_solvers
-        })
-
-    return JsonResponse(data, safe=False)
-
-
+import openpyxl
+from .models import *
 
 @login_required(login_url='dash:login')
 def main(request):
-    # Retrieve quizzes created by the currently logged-in user
     quizes = Quiz.objects.filter(author=request.user)
-
-    # Exclude quizzes with zero questions
     quizes_with_questions = [quiz for quiz in quizes if quiz.questions.exists()]
-
     context = {
-        "quizes": quizes_with_questions
-    }
+        "quizes": quizes_with_questions}
     return render(request, 'main.html', context)
-
-
 
 @login_required(login_url = 'dash:login')
 def create_quiz(request):
@@ -105,7 +76,6 @@ def create_question(request, id):
             is_correct=True
         )
         incorrect_answers = [request.POST[key] for key in request.POST if key.startswith('incorrect')]
-        
         for incorrect_answer in incorrect_answers:
             Option.objects.create(
                 question=ques,
@@ -115,7 +85,6 @@ def create_question(request, id):
         if request.POST['submit_action'] == 'exit':
             return redirect('dash:main')
     return render(request, 'quiz/create-question.html')
-
 
 # question list
 @login_required(login_url = 'dash:login')
@@ -158,9 +127,6 @@ def quest_detail(request, id):
 
     return render(request, 'details/detail.html', context)
 
-
-
-
 @login_required(login_url = 'dash:login')
 def quiz_delete(request, id):
     Quiz.objects.get(id = id).delete()
@@ -191,11 +157,8 @@ def result_detail(request, id):
     }
     return render(request, 'quiz/result-detail.html', context)
 
-
 # excel downloader
-
-from operator import attrgetter
-
+@login_required(login_url='dash:login')
 def get_results_excel_downloader(request, id):
     try:
         quiz = Quiz.objects.get(id=id)
@@ -274,3 +237,18 @@ def register(request):
             status  = f'the username {username} is occupied'
     return render(request, 'auth/register.html', {'status': status})
 
+# chart
+def chart_data_view(request):
+    # Assuming you have a model for storing quiz data, adjust this query accordingly
+    questions = Question.objects.all()
+
+    # Calculate the number of true solvers for each question
+    data = []
+    for question in questions:
+        true_solvers = Answer.objects.filter(option__question=question, option__is_correct=True).count()
+        data.append({
+            'question_id': question.id,
+            'true_solvers': true_solvers
+        })
+
+    return JsonResponse(data, safe=False)

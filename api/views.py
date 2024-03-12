@@ -152,5 +152,3 @@ def show_result(request, id, code):
     result = get_object_or_404(Result, taker=quiz_taker, taker__quiz__code=code)
     serializer = ResultSerializer(result)
     return Response(serializer.data, status=status.HTTP_200_OK)
-
-
