@@ -1,14 +1,15 @@
 
+from django.shortcuts import get_object_or_404
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from requests import Response
 from rest_framework import status
+
 from main.models import Quiz, QuizTaker, Result, Answer, Question, Option
 from .serializers import (QuizSerializer, QuizTakerSerializer, 
                           ResultSerializer, AnswerSerializer, 
                           QuestionSerializer, OptionSerializer)
-from django.shortcuts import get_object_or_404
-from datetime import datetime
-from requests import Response
-from rest_framework.decorators import api_view
-from rest_framework.authtoken.views import obtain_auth_token
+
 
 @api_view(['GET'])
 def quiz_detail(request, quiz_id):
@@ -144,7 +145,6 @@ def create_answers(request, code):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response("Quiz's time is over!", status=status.HTTP_400_BAD_REQUEST)
-
 
 @api_view(['GET'])
 def show_result(request, id, code):
